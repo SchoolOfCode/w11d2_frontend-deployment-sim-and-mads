@@ -48,11 +48,28 @@ function App() {
     setList((previous) => [...previous, listItemWithId]);
   }
 
-  function clearList() {
+  // BELOW FUNCTION HAS BEEN EDITED - WE ARE CURRENTLY TRYING TO IMPLEMENT DELETE.
+  // SEE BACK-END CODE FOR IN-PROGRESS ROUTING FOR DELETE.
+  // OG VERSION OF CODE ONLY HAD:
+  // const clearedList = [];
+  // setList(clearedList);
+  async function clearList() {
     //This function clears all the items that have been added to the list.
     const clearedList = [];
+
+    const response = await fetch(`${url}/items`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+    });
+
+    if (!response.ok) {
+      // Shouldn't really use alert, as it blocks, but will do for now.
+      return alert("Failed to delete item, please try again later.");
+    }
+
     setList(clearedList);
   }
+  // ABOVE CODE HAS BEEN EDITED - WE ARE CURRENTLY TRYING TO IMPLEMENT DELETE.
 
   function tickItem(idOfTickedItem) {
     setList((previous) => {
